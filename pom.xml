@@ -24,19 +24,23 @@
 
 	<dependencies>
 
-		<!--_____CAMEL SPRING BOOT________-->
+		<!--_CAMEL SPRING BOOT-->
 		<dependency>
-			<groupId>org.apache.camel</groupId>
-			<artifactId>camel-spring-boot</artifactId>
-			<version>${camel.version}</version>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.camel.springboot</groupId>
-			<artifactId>camel-direct-starter</artifactId>
+			<artifactId>camel-spring-boot-starter</artifactId>
+			<version>${camel.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-management</artifactId>
 			<version>${camel.version}</version>
 		</dependency>
 
-		<!--__________HAWT.IO_____________-->
+		<!--______HAWT.IO_____-->
 		<dependency>
 			<groupId>io.hawt</groupId>
 			<artifactId>hawtio-springboot</artifactId>
@@ -52,7 +56,7 @@
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
 
-		<!--___________TEST_______________-->
+		<!--_______TEST_______-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -64,7 +68,7 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-		<!--______________________________-->
+		<!--__________________-->
 
 
 	</dependencies>
