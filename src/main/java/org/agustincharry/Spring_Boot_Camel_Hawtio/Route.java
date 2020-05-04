@@ -10,10 +10,10 @@ public class Route extends RouteBuilder {
     public void configure() throws Exception {
 
         from("direct:aa")
-                .log("Hola Mundo------------------>>1");
+                .log("Hola Mundo------------------>>1")
+                .to("direct:bb");
 
-
-        from("timer:aa?period=500")
-                .log("Hola Mundo-----2");
+        from("direct:bb")
+                .log("Hola Mundo------------------>>2");
     }
 }
