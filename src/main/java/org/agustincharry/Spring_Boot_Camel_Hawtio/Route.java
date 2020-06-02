@@ -11,9 +11,16 @@ import org.springframework.stereotype.Component;
 @Component
 public class Route extends RouteBuilder {
 
+    /**
+    * Populate a <setHeader> and <setProperty> command, and then output the resulting message to a log file by ending the route with:
+    *     log:myLog?level=INFO&amp;showHeaders=true&amp;showProperties=true
+    * Watch the Log4j log file and note that the headers and properties correspond to the values you’ve set
+    */
+
     @Override
     public void configure() throws Exception {
-        from("log:myLog?level=INFO&amp;showHeaders=true&amp;showProperties=true")
-            .log("Log message...");
+        from("timer://theTimer?fixedRate=true&period=1000")
+            .log("log:myLog?level=INFO&amp;showHeaders=true&amp;showProperties=true");
     }
+    
 }
