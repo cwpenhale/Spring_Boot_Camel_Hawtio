@@ -20,7 +20,8 @@ public class Route extends RouteBuilder {
     @Override
     public void configure() throws Exception {
         from("timer://theTimer?fixedRate=true&period=1000")
+            // Your Properties and Headers here
             .log("log:myLog?level=INFO&amp;showHeaders=true&amp;showProperties=true");
     }
-    
+
 }
