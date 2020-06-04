@@ -7,7 +7,7 @@ public class ExceptionThrower implements Processor {
 
     @Override
     public void process(Exchange exchange) throws Exception {
-        if(Math.random() > 0.5)
-            throw new Exception("Bad Error");
+//        if(Math.random() > 0)
+//            throw new Exception("Bad Error");
     }
 }
