@@ -1,0 +1,8 @@
+Hi ${exchange.properties.QUEUE_NUMBER},
+
+This messsage is to indicate that ${body} has completed successfully.
+
+Please notify John if there are any problems.
+
+Thanks!
+Camel Team
