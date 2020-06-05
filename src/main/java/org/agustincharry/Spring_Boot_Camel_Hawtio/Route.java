@@ -1,7 +1,6 @@
 package org.agustincharry.Spring_Boot_Camel_Hawtio;
 
 import org.apache.camel.CamelContext;
-import org.apache.camel.ExchangePattern;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.model.dataformat.JsonLibrary;
 import org.springframework.beans.factory.annotation.Autowired;
