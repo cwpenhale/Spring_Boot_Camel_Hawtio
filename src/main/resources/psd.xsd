@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  *******************************************************************
+  
+       PIR-International Protein Sequence Database (PSD)
+  
+       Author:  Bruce C. Orcutt, Ph.D. and John S. Garavelli, Ph.D.
+                National Biomedical Research Foundation
+                3900 Reservoir Road, NW
+                Washington, DC 20007
+       E-mail:  orcutt@nbrf.georgetown.edu
+  
+       Version: version 002 (preliminary version)
+       Date:    11-Jan-2001
+  
+       Copyright (c) 2000 National Biomedical Research Foundation
+       All rights reserved.
+  ********************************************************************
+-->
+<!-- ProteinDatabase: the root element. -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:element name="ProteinDatabase">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" ref="Database"/>
+        <xs:element maxOccurs="unbounded" ref="ProteinEntry"/>
+      </xs:sequence>
+      <xs:attribute name="id" use="required" type="xs:ID"/>
+      <xs:attribute name="release"/>
+      <xs:attribute name="date"/>
+    </xs:complexType>
+  </xs:element>
+  <!-- Database: database name information. -->
+  <xs:element name="Database" type="xs:string"/>
+  <!-- database creator identifier -->
+  <!-- ProteinEntry: the root element. -->
+  <xs:element name="ProteinEntry">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="header"/>
+        <xs:element ref="protein"/>
+        <xs:element ref="organism"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="reference"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="comment"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="genetics"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="complex"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="function"/>
+        <xs:element minOccurs="0" ref="classification"/>
+        <xs:element minOccurs="0" ref="keywords"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="feature"/>
+        <xs:element ref="summary"/>
+        <xs:element ref="sequence"/>
+      </xs:sequence>
+      <xs:attribute name="id" use="required" type="xs:ID"/>
+    </xs:complexType>
+  </xs:element>
+  <!-- header: database information. -->
+  <xs:element name="header">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="uid"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="accession"/>
+        <xs:element ref="created_date"/>
+        <xs:element ref="seq-rev_date"/>
+        <xs:element ref="txt-rev_date"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="uid" type="xs:string"/>
+  <!-- entry identifier -->
+  <xs:element name="accession" type="xs:string"/>
+  <!-- accession number -->
+  <xs:element name="created_date" type="xs:string"/>
+  <!-- date (DD-MMM-YYYY) -->
+  <xs:element name="seq-rev_date" type="xs:string"/>
+  <!-- date (DD-MMM-YYYY) -->
+  <xs:element name="txt-rev_date" type="xs:string"/>
+  <!-- date (DD-MMM-YYYY) -->
+  <!-- protein: the protein-names. -->
+  <xs:element name="protein">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="name"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="alt-name"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="contains"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="name" type="xs:string"/>
+  <!-- protein name -->
+  <xs:element name="alt-name" type="xs:string"/>
+  <!-- alternate protein name -->
+  <xs:element name="contains" type="xs:string"/>
+  <!-- activity name -->
+  <!-- organism: identification of the biological source. -->
+  <xs:element name="organism">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="source"/>
+        <xs:element minOccurs="0" ref="common"/>
+        <xs:element ref="formal"/>
+        <xs:element minOccurs="0" ref="variety"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="note"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="source" type="xs:string"/>
+  <!-- source name -->
+  <xs:element name="common" type="xs:string"/>
+  <!-- common name -->
+  <xs:element name="formal" type="xs:string"/>
+  <!-- scientific name -->
+  <xs:element name="variety" type="xs:string"/>
+  <!-- variety name -->
+  <!-- reference -->
+  <xs:element name="reference">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="refinfo"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="contents"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="note"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="accinfo"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <!-- refinfo: identification of the literature source. -->
+  <xs:element name="refinfo">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="authors"/>
+        <xs:element ref="citation"/>
+        <xs:element minOccurs="0" ref="volume"/>
+        <xs:element minOccurs="0" ref="month"/>
+        <xs:element ref="year"/>
+        <xs:element minOccurs="0" ref="pages"/>
+        <xs:choice minOccurs="0">
+          <xs:element ref="title"/>
+          <xs:element ref="description"/>
+        </xs:choice>
+        <xs:element minOccurs="0" ref="xrefs"/>
+      </xs:sequence>
+      <xs:attribute name="refid" type="xs:NMTOKEN"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="authors">
+    <xs:complexType>
+      <xs:choice>
+        <xs:element maxOccurs="unbounded" ref="author"/>
+        <xs:sequence>
+          <xs:element ref="anonymous"/>
+          <xs:element minOccurs="0" ref="group"/>
+        </xs:sequence>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+  <!-- list of authors -->
+  <xs:element name="author" type="xs:string"/>
+  <!-- author name -->
+  <xs:element name="anonymous">
+    <xs:complexType/>
+  </xs:element>
+  <!-- anonymous author -->
+  <xs:element name="group" type="xs:string"/>
+  <!-- group or laboratory -->
+  <xs:element name="citation">
+    <xs:complexType mixed="true">
+      <xs:attribute name="type" default="journal">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:enumeration value="journal"/>
+            <xs:enumeration value="book"/>
+            <xs:enumeration value="submission"/>
+            <xs:enumeration value="other"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <!-- citation name -->
+  <xs:element name="volume" type="xs:string"/>
+  <!-- volume number -->
+  <xs:element name="month" type="xs:string"/>
+  <!-- month -->
+  <xs:element name="year" type="xs:string"/>
+  <!-- year -->
+  <xs:element name="pages" type="xs:string"/>
+  <!-- page numbers -->
+  <xs:element name="title" type="xs:string"/>
+  <!-- title text -->
+  <xs:element name="contents" type="xs:string"/>
+  <!-- description of contents -->
+  <!--
+    accinfo: identification of the literature source of the sequence;
+    the published sequence is identified by the label;
+    the link is to the genetics information.
+  -->
+  <xs:element name="accinfo">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="accession"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="status"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="mol-type"/>
+        <xs:element minOccurs="0" ref="seq-spec"/>
+        <xs:element minOccurs="0" ref="xrefs"/>
+        <xs:element minOccurs="0" ref="exp-source"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="note"/>
+      </xs:sequence>
+      <xs:attribute name="link" type="xs:NMTOKENS"/>
+      <xs:attribute name="label" type="xs:NMTOKEN"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="mol-type" type="xs:string"/>
+  <!--
+    "DNA" | "mRNA" | "genomic RNA" |
+    "nucleic acid" | "protein"
+  -->
+  <xs:element name="exp-source" type="xs:string"/>
+  <!-- experimental source description -->
+  <!-- comment -->
+  <xs:element name="comment">
+    <xs:complexType mixed="true">
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="uid"/>
+      </xs:sequence>
+      <xs:attribute name="link" type="xs:NMTOKENS"/>
+      <xs:attribute name="label" type="xs:NMTOKEN"/>
+    </xs:complexType>
+  </xs:element>
+  <!-- comment text -->
+  <!-- genetics -->
+  <xs:element name="genetics">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="gene"/>
+        <xs:element minOccurs="0" ref="xrefs"/>
+        <xs:element minOccurs="0" ref="map-position"/>
+        <xs:element minOccurs="0" ref="genome"/>
+        <xs:element minOccurs="0" ref="mobile-element"/>
+        <xs:element minOccurs="0" ref="gene-origin"/>
+        <xs:element minOccurs="0" ref="genetic-code"/>
+        <xs:element minOccurs="0" ref="start-codon"/>
+        <xs:element minOccurs="0" ref="introns"/>
+        <xs:element minOccurs="0" ref="intron-status"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="other-product"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="note"/>
+      </xs:sequence>
+      <xs:attribute name="label" type="xs:NMTOKEN"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="gene">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" ref="db"/>
+        <xs:element ref="uid"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <!-- gene symbols -->
+  <xs:element name="map-position" type="xs:string"/>
+  <!-- map text -->
+  <xs:element name="genome" type="xs:string"/>
+  <!--
+    "mitochondrion" | "chloroplast" |
+    "cyanelle" | plasmid"
+  -->
+  <xs:element name="mobile-element" type="xs:string"/>
+  <!-- element text -->
+  <xs:element name="gene-origin" type="xs:string"/>
+  <!-- origin text -->
+  <xs:element name="genetic-code" type="xs:string"/>
+  <!-- translation table -->
+  <xs:element name="start-codon" type="xs:string"/>
+  <!-- start codon -->
+  <xs:element name="introns" type="xs:string"/>
+  <!-- intron specification -->
+  <xs:element name="intron-status" type="xs:string"/>
+  <!-- "absent" | "incomplete" -->
+  <xs:element name="other-product" type="xs:string"/>
+  <!-- accession number -->
+  <!-- complex -->
+  <xs:element name="complex">
+    <xs:complexType mixed="true">
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="uid"/>
+      </xs:sequence>
+      <xs:attribute name="link" type="xs:NMTOKENS"/>
+      <xs:attribute name="label" type="xs:NMTOKEN"/>
+    </xs:complexType>
+  </xs:element>
+  <!-- complex description -->
+  <!-- function -->
+  <xs:element name="function">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" ref="description"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="pathway"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="note"/>
+      </xs:sequence>
+      <xs:attribute name="label" type="xs:NMTOKEN"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="pathway" type="xs:string"/>
+  <!-- pathway name -->
+  <!-- classification -->
+  <xs:element name="classification">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="superfamily"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="superfamily" type="xs:string"/>
+  <!-- superfamily name -->
+  <!-- keyword -->
+  <xs:element name="keywords">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="keyword"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <!-- keywords -->
+  <xs:element name="keyword" type="xs:string"/>
+  <!-- keyword -->
+  <!-- feature -->
+  <xs:element name="feature">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="feature-type"/>
+        <xs:element minOccurs="0" ref="description"/>
+        <xs:element minOccurs="0" ref="seq-spec"/>
+        <xs:element minOccurs="0" ref="status"/>
+        <xs:element minOccurs="0" ref="note"/>
+      </xs:sequence>
+      <xs:attribute name="link" type="xs:NMTOKENS"/>
+      <xs:attribute name="label" type="xs:NMTOKEN"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="feature-type" type="xs:string"/>
+  <!--
+    "domain" | "product" | "region" |
+    "cleavage-site" | "cross-link" |
+    "disulfide-bonds" | "active-site" |
+    "binding-site" | "inhibitory-site" |
+    "modified-site"
+  -->
+  <!-- summary: summarizes the sequence properties. -->
+  <xs:element name="summary">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="length"/>
+        <xs:element ref="type"/>
+        <xs:element minOccurs="0" ref="status"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="length" type="xs:string"/>
+  <!-- length of aa sequence -->
+  <xs:element name="type" type="xs:string"/>
+  <!--
+    "fragment" | "fragments" |
+    "complete"
+  -->
+  <!-- sequence: the amino acid sequence. -->
+  <xs:element name="sequence" type="xs:string"/>
+  <!--
+    amino acid symbols and
+    punctuation
+  -->
+  <!--
+    General elements. Elements that can be contained in several
+    other elements.
+  -->
+  <xs:element name="xrefs">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="xref"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <!-- cross-references -->
+  <xs:element name="xref">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="db"/>
+        <xs:element ref="uid"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <!-- a cross-reference -->
+  <xs:element name="db" type="xs:string"/>
+  <!-- database tag -->
+  <xs:element name="note" type="xs:string"/>
+  <!-- note text -->
+  <xs:element name="description" type="xs:string"/>
+  <!-- description -->
+  <xs:element name="seq-spec" type="xs:string"/>
+  <!-- sequence specification -->
+  <!--
+    status element. The valid set of values depends on the parent
+    element.
+  -->
+  <!--
+    in an accinfo elment: "preliminary" | "nucleic acid sequence not shown" |
+    "translation not shown" | "protein sequence not shown" |
+    "significant sequence differences" | "translated from GB/EMBL/DDBJ" |
+    "not compared with conceptual translation" | "unencoded polypeptide" |
+    "conceptual translation of pseudogene"
+  -->
+  <!--
+    in a feature element: "experimental" | "predicted" | "atypical" |
+    "absent"
+  -->
+  <!-- in a summary element: "tentative" -->
+  <xs:element name="status" type="xs:string"/>
+</xs:schema>
